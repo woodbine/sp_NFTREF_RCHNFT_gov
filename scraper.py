@@ -84,7 +84,7 @@ def convert_mth_strings ( mth_string ):
 #### VARIABLES 1.0
 
 entity_id = "NFTREF_RCHNFT_gov"
-url = "http://www.rcht.nhs.uk/RoyalCornwallHospitalsTrust/OurOrganisation/FreedomOfInformation/WhatWeSpendAndHowWeSpendIt.aspx"
+url = "https://doclibrary-rcht.cornwall.nhs.uk/RoyalCornwall/FreedomOfInformation/WhatWeSpendAndHowWeSpendIt.aspx"
 errors = 0
 data = []
 
@@ -96,10 +96,10 @@ soup = BeautifulSoup(html, 'lxml')
 
 #### SCRAPE DATA
 
-blocks = soup.find('strong', text=re.compile('Expenditure Over')).find_all_next('a')
+blocks = soup.find_all('a', attrs={'id': re.compile("CornwallFolderListing")})
 for block in blocks:
     if '.csv' in block['href'] or '.xls' in block['href'] or '.xlsx' in block['href']:
-        link = 'http://www.rcht.nhs.uk'+block['href']
+        link = 'https://doclibrary-rcht.cornwall.nhs.uk'+block['href']
         title = block.text.strip().split('-')[-1].strip()
         csvMth = title[:3]
         csvYr = title[-4:]
